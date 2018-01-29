@@ -18,5 +18,11 @@ check_version() {
         local dateString=$(date +"$dateVersionFormat" -D %d\ %b\ %Y\ %H:%M:%S\ GMT -d "$tmpDateString")
   fi
 
-  echo "{\"version\":\"$dateString\"}" | jq --slurp .
+  # Default to the date string
+  local versionValue="$dateString"
+  # Strip out control characters so that jq doesn't get upset
+  local urlContents=$(curl -R -s $1 2>&1 | head -1 | tr -d '[:cntrl:]')
+
+  [ -n "$use_first_line_as_version" ] && versionValue="$urlContents";
+  echo "{\"version\":\"$versionValue\"}" | jq --slurp .
 }

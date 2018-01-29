@@ -16,6 +16,8 @@ This is a useful resource for pipeline development time, while a required artifa
 
 * `skip_ssl_verification`: *Optional.* Skips ssl verification if defined as `true`. Default is `false`.
 
+* `use_first_line_as_version`: *Optional.* Use the first line of the file as the version. Default is `false`.
+
 ### Example
 
 Resource configuration:

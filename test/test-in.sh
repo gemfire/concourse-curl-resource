@@ -44,5 +44,17 @@ it_can_get_file_with_basic_auth() {
 
 }
 
+it_can_get_file_and_the_first_line_is_used_as_version() {
+  jq -n "{
+    source: {
+      url: $(echo $FILE_URL_WITHOUT_LAST_MODIFIED_INFO | jq -R .),
+      filename: $(echo $FILE_NAME_1 | jq -R .),
+      use_first_line_as_version: true
+    }
+  }" | $resource_dir/in "$src" | tee /dev/stderr
+
+}
+
 run it_can_get_file_with_date_info
 run it_can_get_file_with_basic_auth
+run it_can_get_file_and_the_first_line_is_used_as_version
