@@ -4,7 +4,7 @@ set -e
 # e.g. curl -R -I $1
 check_version() {
   # retrieves HTTP header of file URL response
-  local httpHeader=$(curl -R -I $1 2>&1 | grep 'Last-Modified:')
+  local httpHeader=$(curl -H 'Cache-Control: no-cache' -R -I $1 2>&1 | grep 'Last-Modified:')
   # Checks if field "Last-Modified" exists in HTTP header and transform it into timestamp string
   # if that field is not present, return current timestamp
   local dateVersionFormat="%Y%m%d%H%S"
